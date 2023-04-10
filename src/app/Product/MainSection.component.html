@@ -1,0 +1,61 @@
+<div class="ms-5 mt-5 mb-5 d-flex justify-content-center" >
+<button class="btn btn-primary ms-5" (click)="WithDiscount()" >Products with discount</button>
+<button class="btn btn-primary ms-5" (click)="WithoutDiscount()">product without discounts</button>
+</div>
+<router-outlet></router-outlet>
+
+<br>
+<div class="d-flex justify-content-center align-items-center mb-5" style="background-color:aliceblue; box-shadow: 0 3px 3px rgba(0,0,0,0.5); padding: 20px;" >
+  <div>
+  <h3>The Store Name: <span style="font-weight: bolder; font-size:larger; color: darkorange;">{{StoreName}}</span></h3>
+ </div>
+  <div  >
+    <div style="display: flex; justify-content: center; align-items: center;" >
+      <div>
+        <input type="text" [(ngModel)]="ClientName" style="margin-left: 60px; margin-right: 10px; font-weight: bolder; color: green;">
+        <label>Client Name is : <span style="font-weight: bolder; color: green;">{{ClientName}}</span> </label>
+      </div>
+      <div style="margin-left: 30px;">
+        <label for="cars" style="font-weight: bolder; margin-right: 5px;"> Categories:</label>
+        <select name="Category" id="Category">
+          <option *ngFor="let item of CategoryList"> {{item.Name}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div style="display: flex; justify-content:space-around;">
+  <div *ngFor="let item of ProductList; let i = index ">
+    <div>
+      <div *ngIf="item.IsPurshased; then show else outOFStock"></div>
+      <ng-template #show>
+        <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem; height: fit-content;">
+          <img [src]="item.Img" class="card-img-top shadow p-3 mb-5 bg-white rounded" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"> Phone Name: {{item.Name}}</h5>
+            <p class="card-text" style="color: green; font-weight: bolder;"> Price : {{item.Price |currency:'GBP'}} </p>
+            <p class="card-text" style="color: blue; font-weight: bolder;" #Quantity> Quantity : {{item.Quantity}}</p>
+            <div *ngIf="item.IsDiscount; then discount"></div>
+            <ng-template #discount>
+              <p class="card-text">We offer an explicit discount of: Mobile Phone : <span
+                  style="color: green; font-weight: bolder;">{{item.Discount |percent}}</span></p>
+            </ng-template>
+            <a class="btn btn-primary" (click)="Buy(i)">Buy Product</a>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #outOFStock>
+        <div class="card" style="width: 18rem; height: fit-content;">
+
+          <div class="card-body">
+
+            <p class="card-text" style="color: red; font-weight: bolder;"> Out OF Stock </p>
+
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+

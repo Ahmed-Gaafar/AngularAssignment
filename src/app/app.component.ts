@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MainSectionComponent } from './Product/MainSection.component';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @ViewChild(MainSectionComponent) ProductComponent! : MainSectionComponent;
+
+  DisplayData()
+  {
+   this.ProductComponent.renderValues();
+  }
+
   title = 'MainDemo';
 }

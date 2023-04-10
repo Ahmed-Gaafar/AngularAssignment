@@ -1,0 +1,34 @@
+
+<div style="display: flex; justify-content:space-around;">
+    <div *ngFor="let item of ProductList; let i = index ">
+      <div>
+        <div *ngIf="item.IsPurshased; then show else outOFStock"></div>
+        <ng-template #show>
+          <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem; height: fit-content;">
+            <img [src]="item.Img" class="card-img-top shadow p-3 mb-5 bg-white rounded" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"> Phone Name: {{item.Name}}</h5>
+              <p class="card-text" style="color: green; font-weight: bolder;"> Price : {{item.Price |currency:'GBP'}} </p>
+              <p class="card-text" style="color: blue; font-weight: bolder;" #Quantity> Quantity : {{item.Quantity}}</p>
+              <div *ngIf="item.IsDiscount; then discount"></div>
+              <ng-template #discount>
+                <p class="card-text">We offer an explicit discount of: Mobile Phone : <span
+                    style="color: green; font-weight: bolder;">{{item.Discount |percent}}</span></p>
+              </ng-template>
+             </div>
+          </div>
+        </ng-template>
+        <ng-template #outOFStock>
+          <div class="card" style="width: 18rem; height: fit-content;">
+  
+            <div class="card-body">
+  
+              <p class="card-text" style="color: red; font-weight: bolder;"> Out OF Stock </p>
+  
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  
+  
